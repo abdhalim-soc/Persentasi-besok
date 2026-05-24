@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAN Bengkulu Selatan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --dark: #0A0E1A;
+    --dark-2: #111827;
+    --dark-3: #1C2537;
+    --teal: #0EA5C2;
+    --teal-light: #38C4DC;
+    --white: #F8F6F1;
+    --gray: #9CA3AF;
+    --text: #E2DDD6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 2rem;
+    background: rgba(10,14,26,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    animation: slideDown 0.8s ease forwards;
+  }
+  @keyframes slideDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .nav-logo .logo-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--gold), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; font-weight: 900; color: #fff;
+    font-family: 'Playfair Display', serif;
+  }
+  .nav-logo .logo-text { line-height: 1.2; }
+  .nav-logo .logo-text span:first-child {
+    display: block; font-family: 'Playfair Display', serif;
+    font-weight: 700; color: var(--gold); font-size: 0.95rem; letter-spacing: 0.05em;
+  }
+  .nav-logo .logo-text span:last-child {
+    display: block; font-size: 0.68rem; color: var(--gray); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    color: var(--gray); text-decoration: none; font-size: 0.85rem;
+    font-weight: 500; letter-spacing: 0.05em; transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold); transform: scaleX(0);
+    transition: transform 0.3s; transform-origin: left;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--dark) !important; padding: 0.5rem 1.2rem; border-radius: 6px;
+    font-weight: 600 !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { opacity: 0.9; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(14,165,194,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 20% 30%, rgba(201,168,76,0.06) 0%, transparent 50%),
+      linear-gradient(180deg, #0A0E1A 0%, #0D1525 100%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; overflow: hidden; opacity: 0.04;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* floating orbs */
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(60px); animation: float 8s ease-in-out infinite;
+  }
+  .orb-1 { width:300px; height:300px; top:-80px; right:10%; background:rgba(14,165,194,0.12); animation-delay:0s; }
+  .orb-2 { width:200px; height:200px; bottom:20%; left:5%; background:rgba(201,168,76,0.1); animation-delay:3s; }
+  .orb-3 { width:150px; height:150px; top:40%; right:25%; background:rgba(56,196,220,0.08); animation-delay:1.5s; }
+  @keyframes float {
+    0%,100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+
+  .hero-inner {
+    max-width: 900px; margin: 0 auto; position: relative; z-index: 1;
+    animation: heroIn 1s ease 0.3s both;
+  }
+  @keyframes heroIn { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 2rem;
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+  }
+  .hero-badge .dot { width:6px; height:6px; border-radius:50%; background:var(--gold); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(1.5);} }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--white); margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: normal; color: var(--gold); }
+
+  .hero-sub {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--gray); line-height: 1.7; max-width: 600px; margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--dark); padding: 0.85rem 2rem; border-radius: 8px;
+    font-weight: 700; font-size: 0.9rem; text-decoration: none;
+    transition: all 0.3s; letter-spacing: 0.03em;
+    box-shadow: 0 8px 30px rgba(201,168,76,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,76,0.45); }
+  .btn-secondary {
+    border: 1px solid rgba(201,168,76,0.35); color: var(--gold);
+    padding: 0.85rem 2rem; border-radius: 8px; font-weight: 600;
+    font-size: 0.9rem; text-decoration: none; transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+  .btn-secondary:hover { background: rgba(201,168,76,0.08); transform: translateY(-2px); }
+
+  /* stats strip */
+  .stats-strip {
+    display: flex; gap: 0; margin-top: 4rem;
+    border: 1px solid rgba(201,168,76,0.15); border-radius: 14px;
+    overflow: hidden; backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.02);
+  }
+  .stat {
+    flex: 1; padding: 1.4rem; text-align: center;
+    border-right: 1px solid rgba(201,168,76,0.12);
+    transition: background 0.3s;
+  }
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: rgba(201,168,76,0.05); }
+  .stat-num {
+    font-family: 'Playfair Display', serif; font-size: 2rem;
+    font-weight: 700; color: var(--gold); display: block;
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 2rem; }
+
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+
+  .section-tag {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--teal); font-weight: 600; margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-tag::before { content:''; width:24px; height:1px; background:var(--teal); }
+
+  h2 {
+    font-family: 'Playfair Display', serif; font-weight: 800;
+    font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--white); line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  h2 span { color: var(--gold); }
+
+  .section-desc {
+    color: var(--gray); font-size: 1rem; line-height: 1.75; max-width: 600px;
+    font-weight: 300; margin-bottom: 3rem;
+  }
+
+  /* ── KEPALA SEKOLAH ── */
+  .principal-card {
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(201,168,76,0.05), rgba(14,165,194,0.05));
+    border: 1px solid rgba(201,168,76,0.15); border-radius: 20px;
+    padding: 3rem; position: relative; overflow: hidden;
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+  .principal-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+  .principal-card::before {
+    content: '"'; position: absolute; top: -20px; right: 30px;
+    font-size: 15rem; font-family: 'Playfair Display', serif;
+    color: rgba(201,168,76,0.06); line-height: 1; pointer-events: none;
+  }
+  .pc-image {
+    aspect-ratio: 3/4; border-radius: 14px;
+    background: linear-gradient(135deg, var(--dark-3), var(--dark-2));
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; border: 2px solid rgba(201,168,76,0.2);
+    font-size: 4rem;
+  }
+  .pc-greeting {
+    font-family: 'Playfair Display', serif; font-size: 1.2rem;
+    color: var(--gold); font-style: italic; margin-bottom: 1rem;
+  }
+  .pc-text { color: var(--gray); line-height: 1.85; font-size: 0.95rem; font-weight: 300; }
+  .pc-name {
+    margin-top: 1.5rem; padding-top: 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .pc-name strong { display: block; color: var(--white); font-weight: 600; font-size: 1rem; }
+  .pc-name span { color: var(--teal); font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ── FASILITAS ── */
+  .facilities-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+  .fac-card {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 1.8rem;
+    transition: all 0.35s; position: relative; overflow: hidden;
+    cursor: default;
+  }
+  .fac-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(14,165,194,0.06), rgba(201,168,76,0.06));
+    opacity: 0; transition: opacity 0.35s;
+  }
+  .fac-card:hover { border-color: rgba(14,165,194,0.35); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+  .fac-card:hover::before { opacity: 1; }
+  .fac-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1.1rem;
+    box-shadow: 0 8px 20px rgba(14,165,194,0.3);
+    position: relative;
+  }
+  .fac-title { font-weight: 700; color: var(--white); margin-bottom: 0.5rem; font-size: 1rem; position: relative; }
+  .fac-desc { color: var(--gray); font-size: 0.87rem; line-height: 1.65; font-weight: 300; position: relative; }
+
+  /* ── BERITA ── */
+  .news-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .news-card {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; overflow: hidden; transition: all 0.35s;
+    cursor: pointer;
+  }
+  .news-card:hover { transform: translateY(-5px); border-color: rgba(201,168,76,0.25); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+  .news-img {
+    height: 180px; background: linear-gradient(135deg, var(--dark-3), #1a2540);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; position: relative; overflow: hidden;
+  }
+  .news-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,14,26,0.8), transparent);
+  }
+  .news-date {
+    position: absolute; bottom: 12px; left: 12px; z-index: 1;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--dark); padding: 0.3rem 0.8rem; border-radius: 6px;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em;
+  }
+  .news-body { padding: 1.4rem; }
+  .news-body h3 { color: var(--white); font-size: 0.95rem; line-height: 1.5; font-weight: 600; }
+
+  /* ── FAQ ── */
+  .faq-list { display: flex; flex-direction: column; gap: 0.8rem; }
+  .faq-item {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; overflow: hidden; transition: border-color 0.3s;
+  }
+  .faq-item.open { border-color: rgba(14,165,194,0.3); }
+  .faq-q {
+    padding: 1.2rem 1.5rem; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--white); font-weight: 500; font-size: 0.92rem;
+    transition: color 0.3s;
+  }
+  .faq-q:hover { color: var(--gold); }
+  .faq-item.open .faq-q { color: var(--teal); }
+  .faq-arrow {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; transition: transform 0.3s, border-color 0.3s;
+    flex-shrink: 0;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(45deg); border-color: var(--teal); color: var(--teal); }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
+    padding: 0 1.5rem; color: var(--gray); font-size: 0.88rem; line-height: 1.75; font-weight: 300;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding: 0 1.5rem 1.2rem; }
+
+  /* ── STATS MEMBERS ── */
+  .members-section {
+    background: linear-gradient(135deg, rgba(14,165,194,0.05), rgba(201,168,76,0.05));
+    border-radius: 20px; padding: 3rem;
+    border: 1px solid rgba(201,168,76,0.12);
+  }
+  .members-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem; margin-top: 2rem;
+  }
+  .member-stat {
+    text-align: center; padding: 1.5rem 1rem;
+    background: rgba(255,255,255,0.03); border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: all 0.3s;
+  }
+  .member-stat:hover { border-color: rgba(14,165,194,0.3); transform: translateY(-3px); }
+  .member-stat .num {
+    font-family: 'Playfair Display', serif; font-size: 2.2rem;
+    color: var(--teal); font-weight: 700; line-height: 1;
+  }
+  .member-stat .lbl { font-size: 0.72rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.4rem; }
+
+  /* ── TESTIMONIAL ── */
+  .testimonial {
+    background: linear-gradient(135deg, rgba(14,165,194,0.08), rgba(201,168,76,0.06));
+    border: 1px solid rgba(14,165,194,0.2); border-radius: 18px;
+    padding: 3rem; position: relative; overflow: hidden;
+  }
+  .testimonial::before {
+    content: '❝'; position: absolute; top: -10px; left: 20px;
+    font-size: 8rem; color: rgba(14,165,194,0.12); line-height: 1; pointer-events: none;
+  }
+  .testimonial p {
+    font-family: 'Playfair Display', serif; font-size: 1.25rem;
+    font-style: italic; color: var(--white); line-height: 1.7;
+    position: relative; margin-bottom: 1.5rem;
+  }
+  .t-author { display: flex; align-items: center; gap: 1rem; position: relative; }
+  .t-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; font-weight: 700; color: white;
+  }
+  .t-name { font-weight: 600; color: var(--white); }
+  .t-role { font-size: 0.8rem; color: var(--teal); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── KONTAK ── */
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.4rem; background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 12px;
+    transition: all 0.3s;
+  }
+  .contact-item:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-3px); }
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+  }
+  .contact-info { flex: 1; }
+  .contact-info .clabel { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem; }
+  .contact-info .cval { color: var(--white); font-size: 0.9rem; word-break: break-all; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark-2); border-top: 1px solid rgba(201,168,76,0.12);
+    padding: 2rem; text-align: center;
+    color: var(--gray); font-size: 0.8rem; letter-spacing: 0.05em;
+  }
+  footer span { color: var(--gold); }
+
+  /* ── VISITORS ── */
+  .visitor-row {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;
+  }
+  .visitor-chip {
+    padding: 0.5rem 1.2rem; border-radius: 100px;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.82rem; color: var(--gray);
+  }
+  .visitor-chip strong { color: var(--teal); margin-left: 0.4rem; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── SCROLL PROGRESS ── */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px; z-index: 999;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+    width: 0%; transition: width 0.1s linear;
+  }
+
+  /* divider */
+  .divider {
+    height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
+    margin: 0 2rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .principal-card { grid-template-columns: 1fr; }
+    .pc-image { aspect-ratio: 16/9; }
+    .stats-strip { display: grid; grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(n+3) { border-top: 1px solid rgba(201,168,76,0.12); }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">M</div>
+    <div class="logo-text">
+      <span>MAN Bengkulu Selatan</span>
+      <span>Madrasah Hebat, Madrasah Berprestasi</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#fasilitas">Fasilitas</a></li>
+    <li><a href="#berita">Berita</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+    <li><a href="#" class="nav-cta">Daftar Sekarang</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Madrasah Aliyah Negeri · Bengkulu Selatan
+    </div>
+    <h1>Selamat Datang di<br><em>MAN Bengkulu Selatan</em></h1>
+    <p class="hero-sub">Hebat Bermartabat, Mandiri Berprestasi, serta Berakhlakul Karimah. Membentuk generasi unggul melalui pendidikan berbasis teknologi dan nilai-nilai Islami.</p>
+    <div class="hero-btns">
+      <a href="#tentang" class="btn-primary">Kenali Kami</a>
+      <a href="#fasilitas" class="btn-secondary">Fasilitas Online →</a>
+    </div>
+    <div class="stats-strip">
+      <div class="stat">
+        <span class="stat-num" data-target="184720">0</span>
+        <div class="stat-label">Total Pengunjung</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num" data-target="36">0</span>
+        <div class="stat-label">Member Aktif</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num" data-target="92">0</span>
+        <div class="stat-label">Pengunjung Hari Ini</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num" data-target="2">0</span>
+        <div class="stat-label">Online Sekarang</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KEPALA SEKOLAH -->
+<section id="tentang">
+  <div class="section-inner">
+    <div class="section-tag">Pendahuluan</div>
+    <h2>Pengantar <span>Kepala Sekolah</span></h2>
+    <div class="principal-card reveal">
+      <div class="pc-image">🎓</div>
+      <div>
+        <div class="pc-greeting">Assalamu'alaikum Warahmatullahi Wabarakatuh</div>
+        <p class="pc-text">
+          Dalam rangka penerapan kurikulum merdeka pada jenjang pendidikan madrasah, sarana pembelajaran dengan menggunakan website ini bertujuan untuk mempermudah MAN Bengkulu Selatan melaksanakan program tersebut.
+          <br><br>
+          Pemanfaatan teknologi informasi tentunya sangat membantu warga Madrasah dalam berinteraksi dengan dunia luar serta mengintegrasikan teknologi dalam pembelajaran. Teknologi merupakan sumber daya yang dapat digunakan oleh guru dan siswa sebagai penunjang dalam proses belajar mengajar.
+        </p>
+        <div class="pc-name">
+          <strong>Buyung Kalil Kemenag</strong>
+          <span>Kepala MAN Bengkulu Selatan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FASILITAS -->
+<section id="fasilitas">
+  <div class="section-inner">
+    <div class="section-tag">Layanan Digital</div>
+    <h2>Fasilitas <span>Online</span></h2>
+    <p class="section-desc">Melalui website sekolah, seluruh member dapat berinteraksi secara online — dapat diakses dari PC, tablet, maupun smartphone.</p>
+    <div class="facilities-grid">
+      <div class="fac-card reveal">
+        <div class="fac-icon">📚</div>
+        <div class="fac-title">Perpustakaan</div>
+        <div class="fac-desc">Siswa dapat mencari buku pelajaran dan ilmu pengetahuan secara online kapan saja dan di mana saja.</div>
+      </div>
+      <div class="fac-card reveal">
+        <div class="fac-icon">🖥️</div>
+        <div class="fac-title">eLearning</div>
+        <div class="fac-desc">Belajar secara online dimanapun dan kapanpun tanpa dibatasi ruang dan waktu.</div>
+      </div>
+      <div class="fac-card reveal">
+        <div class="fac-icon">👁️</div>
+        <div class="fac-title">Info Pembelajaran</div>
+        <div class="fac-desc">Melalui akun member, orangtua/wali dapat memantau perkembangan pembelajaran putera-puterinya.</div>
+      </div>
+      <div class="fac-card reveal">
+        <div class="fac-icon">📝</div>
+        <div class="fac-title">Pendaftaran Siswa Baru</div>
+        <div class="fac-desc">Siswa yang baru lulus sekolah dapat mendaftar secara online melalui Form Pendaftaran.</div>
+      </div>
+      <div class="fac-card reveal">
+        <div class="fac-icon">💬</div>
+        <div class="fac-title">Bimbingan Konseling</div>
+        <div class="fac-desc">Orangtua/Wali dapat mengetahui informasi perkembangan bakat dan minat siswa.</div>
+      </div>
+      <div class="fac-card reveal">
+        <div class="fac-icon">📶</div>
+        <div class="fac-title">Jaringan Internet</div>
+        <div class="fac-desc">Layanan jaringan online yang dapat dinikmati di seluruh wilayah sekolah.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BERITA -->
+<section id="berita">
+  <div class="section-inner">
+    <div class="section-tag">Terkini</div>
+    <h2>Berita & <span>Kegiatan</span></h2>
+    <div class="news-grid">
+      <div class="news-card reveal">
+        <div class="news-img">
+          🏛️
+          <div class="news-date">13 APR</div>
+        </div>
+        <div class="news-body">
+          <h3>Persiapan Akreditasi, Kepala MAN Bengkulu Selatan Ikuti Pembinaan Kemenag</h3>
+        </div>
+      </div>
+      <div class="news-card reveal">
+        <div class="news-img" style="font-size:2.5rem">📚</div>
+        <div class="news-body">
+          <h3>Implementasi Kurikulum Merdeka Belajar di MAN Bengkulu Selatan</h3>
+        </div>
+      </div>
+      <div class="news-card reveal">
+        <div class="news-img" style="font-size:2.5rem">🎓</div>
+        <div class="news-body">
+          <h3>Peringatan Hari Pendidikan Nasional Bersama Civitas Madrasah 2026</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-tag">FAQ</div>
+    <h2>Pertanyaan yang <span>Sering Diajukan</span></h2>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <div class="faq-q">
+          Saya ingin menjadi member di sekolah ini, apakah bisa mendaftar?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Sekolah membuka pendaftaran untuk login ke halaman member jika anda adalah siswa baru, orangtua/wali, alumni ataupun pemerhati pendidikan yang akan mendapatkan informasi dan dapat memberikan tanggapan atau masukan kepada sekolah.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          Bagaimana saya bisa mendaftar menjadi member di sekolah ini?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Anda dapat mendaftar melalui halaman pendaftaran member yang tersedia di website ini. Lengkapi data diri Anda dan tunggu verifikasi dari pihak madrasah.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          Saya adalah orangtua/wali dari siswa yang sudah aktif. Apakah saya bisa mendaftar?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Ya, orangtua/wali dari siswa yang sudah aktif juga dapat mendaftar sebagai member untuk memantau perkembangan belajar putra-putri Anda melalui platform ini.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MEMBER STATS -->
+<section>
+  <div class="section-inner">
+    <div class="members-section reveal">
+      <div class="section-tag" style="margin-bottom:0.5rem">Komunitas Madrasah</div>
+      <h2 style="margin-bottom:0.3rem">Member <span>Terdaftar</span></h2>
+      <p style="color:var(--gray);font-size:0.9rem;font-weight:300;">Bergabung bersama komunitas MAN Bengkulu Selatan</p>
+      <div class="members-grid">
+        <div class="member-stat">
+          <div class="num" data-target="36">0</div>
+          <div class="lbl">Total Member</div>
+        </div>
+        <div class="member-stat">
+          <div class="num" data-target="0">0</div>
+          <div class="lbl">Total Guru</div>
+        </div>
+        <div class="member-stat">
+          <div class="num" data-target="0">0</div>
+          <div class="lbl">Total Siswa</div>
+        </div>
+        <div class="member-stat">
+          <div class="num" data-target="0">0</div>
+          <div class="lbl">Orangtua/Wali</div>
+        </div>
+        <div class="member-stat">
+          <div class="num" data-target="0">0</div>
+          <div class="lbl">Alumni</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIAL -->
+<section>
+  <div class="section-inner">
+    <div class="section-tag">Testimonial</div>
+    <div class="testimonial reveal">
+      <p>"Kita sukseskan implementasi kurikulum merdeka dengan memanfaatkan website madrasah sebagai sarana pembelajaran dan komunikasi yang efektif."</p>
+      <div class="t-author">
+        <div class="t-avatar">E</div>
+        <div>
+          <div class="t-name">Erlen Gustiana</div>
+          <div class="t-role">Administrator</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KONTAK -->
+<section id="kontak">
+  <div class="section-inner">
+    <div class="section-tag">Hubungi Kami</div>
+    <h2>Info <span>Kontak</span></h2>
+    <div class="contact-grid reveal">
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-info">
+          <div class="clabel">Telepon</div>
+          <div class="cval">73921204</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-info">
+          <div class="clabel">Email</div>
+          <div class="cval">info@manbengkuluselatan.sch.id</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🌐</div>
+        <div class="contact-info">
+          <div class="clabel">Website</div>
+          <div class="cval">www.manbengkuluselatan.sch.id</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="visitor-row reveal">
+      <div class="visitor-chip">🟢 Online Sekarang <strong>2</strong></div>
+      <div class="visitor-chip">📅 Hari Ini <strong>92</strong></div>
+      <div class="visitor-chip">📊 Total Pengunjung <strong>184.720</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 <span>MAN Bengkulu Selatan</span> · Madrasah Hebat, Madrasah Berprestasi
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Counter animation
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const duration = 2000;
+  const step = target / (duration / 16);
+  let current = 0;
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.textContent = Math.floor(current).toLocaleString('id');
+    if (current >= target) clearInterval(timer);
+  }, 16);
+}
+
+const counters = document.querySelectorAll('[data-target]');
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(e.target);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObs.observe(c));
+
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
